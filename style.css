@@ -1,0 +1,64 @@
+:root{
+  --bg:#0e0e10;
+  --plate:#ffffff;
+  --choco:#4b2e2e;
+  --choco-dark:#2b1515;
+  --cream:#ffffff;
+  --candle:#d62828;
+  --text:#f5efe6;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:var(--text)}
+.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.title{font-size:28px;margin:0 0 8px}
+.hint{color:rgba(255,255,255,0.7);margin:0 0 18px}
+
+/* stage */
+.stage{display:flex;align-items:center;justify-content:center;gap:20px}
+.plate{width:360px;height:120px;background:var(--plate);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+
+/* cake (centered on plate) */
+.cake{position:relative;width:260px;height:180px;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.layer{width:220px;border-radius:120px 120px 20px 20px;box-shadow:inset 0 -8px 12px rgba(0,0,0,0.2)}
+.layer.bottom{height:60px;background:linear-gradient(180deg,var(--choco-dark),var(--choco));transform:translateY(30px)}
+.layer.middle{height:50px;background:linear-gradient(180deg,var(--choco),#5d392f);transform:translateY(10px)}
+.layer.top{height:40px;background:linear-gradient(180deg,#6b3b33,#7b4a41);transform:translateY(-10px)}
+
+/* icing and drips */
+.icing{position:absolute;top:26px;width:220px;height:36px;background:var(--cream);border-radius:18px;box-shadow:0 3px 0 rgba(0,0,0,0.08)}
+.drip{position:absolute;width:20px;height:28px;background:var(--cream);border-radius:0 0 18px 18px;top:46px}
+.drip.d1{left:70px;transform:rotate(-6deg)}
+.drip.d2{left:110px;transform:rotate(4deg)}
+.drip.d3{left:150px;transform:rotate(-2deg)}
+
+/* candle */
+.candle{position:absolute;top:6px;left:calc(50% - 10px);width:20px;height:70px;background:var(--candle);border-radius:6px;display:flex;align-items:flex-start;justify-content:center;z-index:6;pointer-events:auto}
+.wick{width:2px;height:8px;background:#222;margin-top:6px;border-radius:2px}
+.flame{position:absolute;top:-6px;width:18px;height:24px;background:radial-gradient(circle at 35% 30%, #fff08a 0%, #ffd86b 30%, #ff8a00 60%, #ff4800 100%);border-radius:50%;filter:blur(0.2px);transform-origin:center;animation:flicker 240ms infinite ease-in-out}
+.glow{position:absolute;top:-4px;width:60px;height:60px;border-radius:50%;background:radial-gradient(circle, rgba(255,200,120,0.14), rgba(255,120,60,0.06) 40%, transparent 60%);pointer-events:none}
+
+/* flame animation */
+@keyframes flicker{
+  0%{transform:translateY(0) scale(1) rotate(-3deg);opacity:1}
+  50%{transform:translateY(-2px) scale(1.05) rotate(3deg);opacity:0.9}
+  100%{transform:translateY(0) scale(1) rotate(-3deg);opacity:1}
+}
+
+/* hidden state for flame */
+.candle.out .flame{display:none}
+.candle.out .glow{display:none}
+
+/* confetti canvas */
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+
+/* popup */
+.popup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:100}
+.popup-card{background:linear-gradient(90deg,#fff6e0,#ffe6b3);padding:18px 26px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.35);transform:scale(0.6);opacity:0;transition:all 360ms cubic-bezier(.2,.9,.3,1)}
+.popup.show .popup-card{transform:scale(1);opacity:1;pointer-events:auto}
+
+/* responsive */
+@media (max-width:420px){
+  .plate{width:300px;height:110px}
+  .cake{width:220px;height:160px}
+  .title{font-size:20px}
+}
